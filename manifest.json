@@ -1,0 +1,19 @@
+{
+  "name": "Response Modify Script",
+  "version": "1.0",
+  "description": "This extension will run specific script after the site has loaded.",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["http://127.0.0.1:5500/*"],
+      "js": ["inject.js"]
+    }
+  ],
+  // 여기에 proxy.js를 리소스로 등록해야 inject.js에서 인젝션 할 수 있음.
+  "web_accessible_resources": [
+    {
+      "resources": ["proxy.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

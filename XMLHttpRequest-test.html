@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XMLHttpRequest 예제</title>
+  </head>
+  <body>
+    <button onclick="send_request()">요청 보내기</button>
+    <p id="response"></p>
+
+    <script>
+      function send_request() {
+        document.getElementById("response").innerText = "요청 전송중...";
+        const xhr = new XMLHttpRequest();
+        const url = "https://127.0.0.1/api";
+
+        xhr.onreadystatechange = function () {
+          // xhr.readyState 는 4가지 상태를 가지며, 4는 데이터를 전부 받은 상태를 의미한다.
+          if (xhr.readyState === 4) {
+            // 요청에 성공한 경우
+            if (xhr.status === 200) {
+              const response_text = xhr.responseText;
+              if (response_text === "password-correct") {
+                document.getElementById("response").innerText =
+                  "암호 확인 성공";
+              } else {
+                document.getElementById(
+                  "response"
+                ).innerHTML = `암호 확인 실패<br>
+                  응답값: ${response_text}`;
+              }
+            } else {
+              document.getElementById("response").innerText = "서버 접속 실패";
+            }
+          }
+        };
+
+        xhr.open("GET", url, true);
+        xhr.send();
+      }
+    </script>
+  </body>
+</html>
